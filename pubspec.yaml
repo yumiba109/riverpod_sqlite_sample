@@ -12,11 +12,23 @@ dependencies:
   flutter:
     sdk: flutter
 
+  sqflite: ^2.0.0+4
+  path: ^1.8.0
+
+  hooks_riverpod: ^0.14.0+4
+  state_notifier: ^0.7.0
+
+  freezed_annotation: ^0.14.3
+  json_serializable: ^4.1.4
+
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  freezed: ^0.14.2
+  build_runner: ^2.1.1
 
   flutter_lints: ^1.0.0
 

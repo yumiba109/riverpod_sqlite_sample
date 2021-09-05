@@ -20,6 +20,8 @@ class TodoAddPage extends HookWidget {
           ElevatedButton(
             onPressed: () async {
               await todoViewModel.addTodo(_titleController.text);
+
+              Navigator.pop(context);
             },
             child: const Text('追加'),
           ),

@@ -17,13 +17,17 @@ class TodoDatabase extends AppDatabase {
     return maps.map((map) => Todo.fromJson(map)).toList();
   }
 
-  Future insert(Todo todo) async {
+  Future<Todo> insert(Todo todo) async {
     final db = await database;
 
-    return await db.insert(
+    final id = await db.insert(
       _tableName,
       todo.toJson(),
       conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    return todo.copyWith(
+      id: id,
     );
   }
 

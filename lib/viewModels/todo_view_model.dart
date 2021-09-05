@@ -25,6 +25,10 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
       title: title,
       isDone: 0,
     ));
+
+    state = state.copyWith(
+      todos: [todo, ...state.todos],
+    );
   }
 
   Future<void> getTodos() async {

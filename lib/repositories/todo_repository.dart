@@ -12,7 +12,7 @@ class TodoRepository {
     return _todoDatabase.getTodos();
   }
 
-  Future<void> addTodo(Todo todo) async {
+  Future<Todo> addTodo(Todo todo) async {
     return _todoDatabase.insert(todo);
   }
 

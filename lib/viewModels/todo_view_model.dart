@@ -13,7 +13,9 @@ final todoViewModelProvider = StateNotifierProvider(
 
 class TodoViewModelProvider extends StateNotifier<TodoState> {
   TodoViewModelProvider(this._reader, this._todoRepository)
-      : super(const TodoState()) {}
+      : super(const TodoState()) {
+    getTodos();
+  }
 
   final Reader _reader;
   final TodoRepository _todoRepository;
@@ -23,5 +25,29 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
       title: title,
       isDone: 0,
     ));
+  }
+
+  Future<void> getTodos() async {
+    final todos = await _todoRepository.getTodos();
+
+    state = state.copyWith(
+      todos: todos,
+    );
+  }
+
+  Future<void> changeStatus(Todo todo, int value) async {
+    final newTodo = todo.copyWith(
+      isDone: value,
+    );
+
+    await _todoRepository.updateTodo(newTodo);
+
+    final todos = state.todos
+        .map((todo) => todo.id == newTodo.id ? newTodo : todo)
+        .toList();
+
+    state = state.copyWith(
+      todos: todos,
+    );
   }
 }

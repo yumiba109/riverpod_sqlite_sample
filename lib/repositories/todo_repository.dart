@@ -8,7 +8,15 @@ class TodoRepository {
 
   TodoRepository(this._todoDatabase);
 
+  Future<List<Todo>> getTodos() async {
+    return _todoDatabase.getTodos();
+  }
+
   Future<void> addTodo(Todo todo) async {
     return _todoDatabase.insert(todo);
+  }
+
+  Future<void> updateTodo(Todo todo) async {
+    return _todoDatabase.update(todo);
   }
 }

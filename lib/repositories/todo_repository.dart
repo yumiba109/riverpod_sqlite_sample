@@ -19,4 +19,8 @@ class TodoRepository {
   Future<void> updateTodo(Todo todo) async {
     return _todoDatabase.update(todo);
   }
+
+  Future<void> deleteTodo(int id) async {
+    return _todoDatabase.delete(id);
+  }
 }

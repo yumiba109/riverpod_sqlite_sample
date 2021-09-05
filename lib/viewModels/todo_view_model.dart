@@ -50,4 +50,14 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
       todos: todos,
     );
   }
+
+  Future<void> deleteTodo(int todoId) async {
+    await _todoRepository.deleteTodo(todoId);
+
+    final todos = state.todos.where((todo) => todo.id != todoId).toList();
+
+    state = state.copyWith(
+      todos: todos,
+    );
+  }
 }

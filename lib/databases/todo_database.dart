@@ -38,4 +38,14 @@ class TodoDatabase extends AppDatabase {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  Future delete(int id) async {
+    final db = await database;
+
+    return await db.delete(
+      _tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }

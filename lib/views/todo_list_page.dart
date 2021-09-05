@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_sqlite_sample/models/todo.dart';
 import 'package:riverpod_sqlite_sample/viewModels/todo_view_model.dart';
@@ -43,19 +44,32 @@ class TodoListPage extends HookWidget {
   }
 
   Widget _todoItem(Todo todo, int index, TodoViewModelProvider todoViewModel) {
-    return CheckboxListTile(
-      title: Text(
-        todo.title,
-        style: TextStyle(
-            decoration: todo.isDone == 1
-                ? TextDecoration.lineThrough
-                : TextDecoration.none),
+    return Slidable(
+      actionPane: const SlidableScrollActionPane(),
+      secondaryActions: [
+        IconSlideAction(
+          caption: '削除',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () async {
+            await todoViewModel.deleteTodo(todo.id!);
+          },
+        ),
+      ],
+      child: CheckboxListTile(
+        title: Text(
+          todo.title,
+          style: TextStyle(
+              decoration: todo.isDone == 1
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none),
+        ),
+        value: todo.isDone == 1 ? true : false,
+        onChanged: (value) {
+          todoViewModel.changeStatus(todo, value! ? 1 : 0);
+        },
+        controlAffinity: ListTileControlAffinity.leading,
       ),
-      value: todo.isDone == 1 ? true : false,
-      onChanged: (value) {
-        todoViewModel.changeStatus(todo, value! ? 1 : 0);
-      },
-      controlAffinity: ListTileControlAffinity.leading,
     );
   }
 }
